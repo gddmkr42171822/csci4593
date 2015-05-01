@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\linespread{1.3} % 1 and half line spacing
+\usepackage[top=1in, bottom=1in, left=.5in, right=.5in]{geometry} % set the margins
+\usepackage{helvet} % font type
+\usepackage{amsmath} % math equations
+\usepackage{graphicx} % resize a table
+
+\begin{document}
+	
+\title{CSCI 4593: Homework 4}
+\author{}
+\date{}
+
+\maketitle
+
+\section*{4.4.2}
+Add = 70ps\\
+Sign extend = 15ps\\
+Shift left 2 = 10ps\\
+I-Mem = 200ps\\
+Mux = 20ps\\
+For an unconditional branch we need to first fetch the instruction from instruction memory, sign-extend the lower 16 bits of the instruction,
+shift those left by 2, add the result to create the branch target, and finally use a mux to replace the PC with the branch target.\\
+\textbf{Cycle time = 200ps + 15ps + 10ps + 70ps + 20ps = 315ps}\\
+\subsubsection*{Using the information from Problem 4.4.2, what is the clock cycles time if the only types of instructions we need to support are ALU instructions (ADD, AND, etc.)?}
+I-Mem = 200ps\\
+Regs = 90ps\\
+Mux = 20ps\\
+ALU = 90ps\\
+In order to support ALU (R-type) instructions, we need instruction memory, registers, 2 muxes, and an ALU.\\
+\textbf{Cycle time = 200ps + 90ps + 2}$\mathbf{\times}$\textbf{20ps + 90ps = 400ps}\\
+
+
+\section*{4.7.4}
+Instruction: 1010 1100 0110 0010 0000 0000 0001 0100\\
+\\
+\scalebox{0.7}{
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	op (Inst[31:26]) & rs (Inst[25:21]) & rt (Inst[20:16]) & address (Inst[15:0])\\
+	\hline
+	101011 & 00011 & 00010 & 0000000000010100\\
+	\hline
+	sw & 3 & 2 & 20\\
+	\hline
+\end{tabular}
+}
+\newline
+\vspace{4mm}
+\newline
+\scalebox{0.7}{
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Write register (RegDst = X) & ALU (ALUSrc = 1) & Write data (MemtoReg = X) & Branch (Branch = 0) & Jump (Jump = 0)\\
+	\hline
+	value = 0 (Inst[15-11]) or 2 (Inst[20-16]) & value = 20 (Inst[15-0]) & value = ALU result or Data memory read data & value = PC + 4 & value = PC + 4\\
+	\hline
+\end{tabular}
+}
+\section*{4.16.1}
+always-taken will hit 3/5 or be 60\% accurate\\
+always-not-take will hit 2/5 or be 40\% accurate\\
+\section*{4.16.2}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	Step & Predictor state & Branch state & result\\
+	\hline
+	1 & not-taken & taken & miss\\
+	\hline
+	2 & not-taken & not-taken & hit\\
+	\hline
+	3 & not-taken & taken & miss\\
+	\hline
+	4 & not-taken & taken & miss\\
+	\hline
+\end{tabular}
+\\
+\\
+The accuracy is 1/4 or 25\%\\
+
+
+\section*{4.16.3}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	Step & Predictor state & Branch state & result\\
+	\hline
+	1 & not-taken (0) & taken & miss\\
+	\hline
+	2 & not-taken (1) & not-taken & hit\\
+	\hline
+	3 & not-taken (0) & taken & miss\\
+	\hline
+	4 & not-taken (1) & taken & miss\\
+	\hline
+	5 & taken (3) & not-taken & miss\\
+	\hline 
+	6 & not-taken (2) & taken & miss\\
+	\hline
+	7 & taken (3) & not-taken & miss\\
+	\hline
+	8 & not-taken (2) & taken & miss\\
+	\hline
+	9 & taken (3) & taken & hit\\
+	\hline
+	10 & taken (4) & not-taken & miss\\
+	\hline
+	11 & taken (3) & taken & hit\\
+	\hline
+	12 & taken (4) & not-taken & miss\\
+	\hline
+	13 & taken (3) & taken & hit\\
+	\hline
+	14 & taken (4) & taken & hit\\
+	\hline
+	15 & taken (4) & not-taken & miss\\
+	\hline
+\end{tabular}\\
+\\
+\\
+It looks like the long term accuracy will be 3/5 or 60\% when the predictor moves into the predict taken states.  It will always hit on the taken branches and always miss on the not-taken branches.  It will remain in the predict taken states move back and forth.
+
+\end{document}

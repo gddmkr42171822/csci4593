@@ -1,0 +1,16 @@
+L1_block_size:
+L1_cache_size: 4096
+L1_assoc: 
+L1_hit_time:
+L1_miss_time:
+L2_block_size: 
+L2_cache_size: 
+L2_assoc: 
+L2_hit_time:
+L2_miss_time:
+L2_transfer_time:
+L2_bus_width:
+mem_sendaddr:
+mem_ready:
+mem_chunktime:
+mem_chunksize:

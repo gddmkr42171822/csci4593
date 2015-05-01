@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+\linespread{1.3} % 1 and half line spacing
+\usepackage[top=1in, bottom=1in, left=.5in, right=.5in]{geometry} % set the margins
+\usepackage{courier} % font type
+\usepackage{amsmath} % math equations
+
+\begin{document}
+	
+\title{Exam 1: Study Guide}
+\author{}
+\date{}
+
+\maketitle
+
+\section{Famous Architects and Machines}
+
+\subsection*{}
+\begin{tabular}{|c|c|}
+	\hline
+	\textbf{Architect} & \textbf{Contribution}\\
+	\hline
+	Eckert and Mauchly & First Working Electronic Computer (ENIAC)(1946)\\
+	\hline
+	Wilkes & First Store Program Computer (EDSAC I) (1949)\\
+	\hline
+	Amdahl & Amdahl's Law\\
+	\hline
+	Cray & 1st Super Computer\\
+	\hline
+	Patterson & RISC Processor Design\\
+	\hline
+	Hennessy & MIPS\\
+	\hline
+	Rau & Very Long Instruction Word\\
+	\hline
+	Smith & Branch Prediction Strategies\\
+	\hline
+	Patt & First Complex Logic Gate On Silicon\\
+	\hline
+	Hwu & Compiler Optimization\\
+	\hline
+	Sohi & Non-blocking Microprocessor Caches\\
+	\hline
+\end{tabular}
+
+\subsection*{}
+\begin{tabular}{|c|c|}
+	\hline
+	\textbf{Computer} & \textbf{Claim To Fame}\\
+	\hline
+	Univac I & First Commercial Machine (1951)\\
+	\hline
+	IBM System 360 & Concept Of Family Of Machines (1964)\\
+	\hline
+	DEC PDP-8 & Mini-computer\\
+	\hline
+	DEC PDP-11 & Unix Developled On This Machine\\
+	\hline
+	Cray-1 & Super Computer (1976)\\
+	\hline
+	Intel 4004 & First Microprocessor\\
+	\hline
+	Intel 8086 & Basic Architecture of IA32 PC\\
+	\hline
+	Intel 80486 & Pipelined IA32 \\
+	\hline
+	Pentium & Superscalar IA32 \\
+	\hline
+	AMD Barcelona & L1, L2, L3 Cache; nm Technology; 1.6 GHz clock\\
+	\hline
+\end{tabular}
+
+\section{Fabrication}
+
+\subsection*{Yield}
+\begin{align*}
+	&\mathrm{\textbf{Cost\;Per\;Die}} = \frac{\mathrm{Cost\;Per\;Wafer}}{\mathrm{Dies\;Per\;Wafer}\cdot{\mathrm{Yield}}}\\
+	&\mathrm{\textbf{Wafer\;Area}} = \pi\cdot{r}^2\\
+	&\mathrm{\textbf{Dies\;Per\;Wafer}} = \frac{\mathrm{Wafer\;Area}}{\mathrm{Die\;Area}}\\
+	&\mathrm{\textbf{Yield}} = \frac{1}{(1\;+\;(\mathrm{Defects\;Per\;Area\cdot{\frac{\mathrm{Die\;Area}}{2}}}))^2}\\
+\end{align*}
+
+\subsection*{Power}
+\begin{align*}
+	\mathrm{\textbf{Dynamic\;Power}} = \frac{1}{2}\cdot{\mathrm{Capacitive\;Load}}\cdot{\mathrm{Voltage}^2}\cdot{\mathrm{Clock\;Rate}} 
+\end{align*}
+
+\section{MIPS Design Decisions}
+
+\subsection*{Why is MIPS limited to 32 registers?}
+\begin{enumerate}
+\item{A very large number of registers may increase the clock cycle time simply because it takes electronic signals longer when they must travel farther.}
+\item{You would have to expand the instruction format to accomadate more bits.}
+\end{enumerate}
+
+\subsection*{What are the 3 design principles of MIPS}
+\begin{enumerate}
+	\item{Simplicity favors regularity.}
+	\item{Smaller is faster.}
+	\item{Good design demands good compromises.}
+\end{enumerate}
+
+\subsection*{Why do words in MIPS have to start at addresses that are multiples of 4?}
+\begin{enumerate}
+	\item{This alignment restriction leads to faster data transfers.}
+	\item{It also allows programs to always use lw and sw to access the stack.}
+\end{enumerate}
+
+\subsection*{Why does MIPS keep all instructions the same length?}
+\begin{enumerate}
+	\item{MIPS follows the design principle that states `simplicity favors regularity.'}
+\end{enumerate}
+
+
+\section{Intel x86 Idiosyncrasies}
+\begin{enumerate}
+	\item{Intel x86 only supports 8 general purpose register.}
+	\item{The x86 arithmetic and logical instructions must have one operand act as both a source and a destination.}
+	\item{One instruction operand can be in memory.}
+	\item{x86 instructions are not all 4 bytes in length.}
+	\item{Registers have dedicated uses.}
+\end{enumerate}
+
+\section{Amdahl's Law}
+\subsection*{}
+\begin{align*}
+	\mathrm{\textbf{Speed\;Up}} = \frac{\mathrm{Old\;Time}}{\mathrm{New\;Time}}\\
+	\mathrm{\textbf{Speed\;Up}}_{\mathrm{\textbf{Overall}}} = \frac{1}{(1-\mathrm{F})+\frac{\mathrm{F}}{\mathrm{S}}}\\
+\end{align*}
+where F is the Percentage to be enchanced and S is the factor it is to be enhanced by\\
+\section{CPI and Performance}
+\subsection*{CPU Time}
+\begin{align*}
+		\mathrm{\textbf{CPU\;Time}} &= \frac{\mathrm{Instruction\;Count}\cdot{\mathrm{CPI}}}{\mathrm{Clock\;Rate}}\\
+						   &= \frac{\mathrm{Insructions}}{\mathrm{Program}}\cdot{
+						   \frac{\mathrm{Clock\;Cycles}}{\mathrm{Instructions}}}\cdot{\frac{\mathrm{Seconds}}{\mathrm{Clock\;Cycle}}}\\
+		\mathrm{\textbf{Overall\;Effective\;CPI}} &= \sum_{i=1}^{n} (\mathrm{CPI}_{i}\cdot{\mathrm{IC}_{i}})\\
+\end{align*}
+	
+\subsection*{MIPS}
+\begin{align*}
+		\mathrm{\textbf{MIPS}} = \frac{\mathrm{Instruction\;Count}}{\mathrm{CPU\;Time}\cdot{10^6}} \\
+\end{align*}
+
+\subsection*{Performance Ratio}
+\begin{align*}
+	\frac{\mathrm{performance}_\mathrm{A}}{\mathrm{performance}_\mathrm{B}} = \frac{\mathrm{CPU\;
+	Time}_{\mathrm{A}}}{\mathrm{CPU\;Time}_{\mathrm{B}}} = \mathrm{n}\\
+\end{align*}
+\begin{center}
+So A is n times faster than B
+\end{center}
+
+\subsection*{SPEC}
+	\[
+		\mathrm{\textbf{SPEC Ratio}} = \frac{\mathrm{Reference Time}}{\mathrm{Execution Time}}\\
+	\]
+
+\section{Counting Gate Delays}
+\subsection*{Wallace Tree}
+\[
+	\mathrm{\textbf{Gate\;Delays}} = log_{\frac{3}{2}} \mathrm{N}
+\]
+where N is the number of bits in the multiplier\\
+\[
+	\mathrm{\textbf{Gate\;Delays}}_{\mathrm{\textbf{Booth\;Recoding}}} = log_{\frac{3}{2}} \frac{\mathrm{N}}{2}
+\]
+\subsection*{Ripple Carry Adder}
+\[
+	\mathrm{\textbf{Gate Delays}} = \text{N}\cdot{2}
+\]
+where N is the number of bits in the numbers being added
+\subsection*{Carry Look Ahead Adder}
+\begin{enumerate}
+\item{Each FA is like a ripple carry adder and has 1 gate delay each.}
+\item{The first-level and first CLA is 3 gate delays with an additional 2 after each CLA on the same level.}
+\item{Each additional first CLA in a level is another 2 gate delays on top of the 3 for the first-level CLA.}
+\end{enumerate}
+\section{Binary Arithmetic}
+
+\subsection*{Overflow}
+\subsubsection*{Unsigned}
+\begin{enumerate}
+	\item{Overflow occurs when there is a 1 in the carry out.}
+\end{enumerate}
+
+\subsubsection*{Signed}
+\begin{enumerate}
+	\item{Overflow occurs when you add 2 positive numbers and get a negative, or when you add 2 negative numbers and get a positive.}
+\end{enumerate}
+
+\subsection*{Addition}
+\subsubsection*{Unsigned}
+\begin{enumerate}
+	\item{The result should have the same amount of bits are the original numbers.}
+\end{enumerate}
+
+\subsubsection*{Signed}
+\begin{enumerate}
+	\item{Same as Unsigned except you have to watch out for the MSB being a 1 or 0 indicating a positive or negative number respectively.}
+\end{enumerate}
+
+\subsection*{Subtraction}
+\subsubsection*{Unsigned}
+\begin{enumerate}
+	\item{Change the subtrahend to its 2's complement and add it to the minuend.}
+\end{enumerate}
+
+\subsubsection*{Signed}
+\begin{enumerate}
+	\item{Same as Unsigned.}
+\end{enumerate}
+
+\subsection*{Multiplication}
+\subsubsection*{Unsigned}
+\begin{enumerate}
+	\item{If multiplying an N-bit number by an M-bit number, the result should have N+M bits.}
+\end{enumerate}
+
+\subsubsection*{Signed}
+\begin{enumerate}
+	\item{Same as Unsigned.}
+	\item{If the multiplier is negative take the 2's complement on both numbers and then multiply them.}
+	\item{Use Booth's recoding to reduce the number of additions needed to be done by half.}
+	\item{If using Booth's recoding and the the multiplier has a -1 in the position add the 2's complement of the multiplicand to the product.}
+	\item{If using Booth's recoding and the mulitipler has a -2 in the position find the 2's complement of the multiplicand and shift it left 1 bit
+	and then add it to the product.}
+	\item{If using Booth's recoding and the mulitipler has a 2 in the position shift the multiplicand left 1 bit
+	and then add it to the product.}
+\end{enumerate}
+
+\subsection*{Division}
+\subsubsection*{Unsigned}
+\begin{enumerate}
+	\item{Remember when borrowing from the left that the 1 really carries over 2 1's.}
+\end{enumerate}
+
+\subsubsection*{Signed}
+\begin{enumerate}
+	\item{Make both numbers positive and then figure out the sign at the end and change the bits in the result to reflect that.}
+\end{enumerate}
+
+
+\end{document}

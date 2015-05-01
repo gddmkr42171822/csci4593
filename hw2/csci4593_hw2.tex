@@ -1,0 +1,287 @@
+\documentclass[12pt]{article}
+\linespread{1.3} % 1 and half line spacing
+\usepackage[top=1in, bottom=1in, left=.5in, right=.5in]{geometry} % set the margins
+\usepackage{helvet} % font type
+\usepackage{amsmath} % math equations
+
+\begin{document}
+	
+\title{CSCI 4593: Homework 2}
+\author{}
+\date{}
+
+\maketitle
+
+\section*{2.3}
+sub \$t0, \$s3, \$s4;\hspace{10mm}\$t0 = i - j\newline
+sll \$t0, \$t0 , 2; \hspace{10mm} \$t0 = (i - j) * 4\newline
+add \$t0, \$s6, \$t0;\hspace{10mm}\$t0 = \&A + (i -j)*4\newline
+lw \$t1, \$0(\$t0);\hspace{11mm}\$t1 = A[i-j]\newline
+sw \$t1, 32(\$s7);\hspace{12mm}B[8] = A[i-j]\newline
+
+\section*{2.7}
+\textbf{Little Endian}\\
+Low Memory$\rightarrow$High Memory\\
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Hex Digit & 12 & ef & cd & ab\\
+	\hline
+	Address & 0 & 4 & 8 & 12\\
+	\hline
+\end{tabular}\\
+\newline
+\textbf{Big Endian}\\
+Low Memory$\rightarrow$High Memory\\
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Hex Digit & ab & cd & ef & 12\\
+	\hline
+	Address & 0 & 4 & 8 & 12\\
+	\hline
+\end{tabular}\\
+
+\section*{2.11}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	instruction & type & opcode & rs & rt & rd & immed\\
+	\hline
+	addi \$t0, \$s6, 4 & I-type & 8 & 22 & 8 && 4\\
+	\hline
+	add \$t1, \$s6, \$0 & R-type & 0 & 22 & 0 & 9 & \\
+	\hline
+	sw \$t1, 0(\$t0) & I-type & 43 & 8 & 9 & & 0\\
+	\hline
+	lw \$t0, 0(\$t0) & I-type & 35 & 8 & 8 & & 0\\
+	\hline
+	add \$s0, \$t1, \$t0 & R-type & 0 & 9 & 8 & 16 & \\
+	\hline
+\end{tabular}
+
+\section*{2.12.3}
+\$s0 = 1000 0000 0000 0000 0000 0000 0000 0000\\
+\$s1 = 1101 0000 0000 0000 0000 0000 0000 0000\\
+inverted \$s1 = 0010 1111 1111 1111 1111 1111 1111 1111\\
+negated \$s1 = 0011 0000 0000 0000 0000 0000 0000 0000\\
+\newline
+\begin{tabular}{ccccccccc}
+	& 1000 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000\\
+	+ & 0011 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000\\
+	\hline
+	& 1011 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000 & 0000\\
+\end{tabular}
+\newline
+\newline
+\textbf{\$t0 = 1011 0000 0000 0000 0000 0000 0000 0000 $\rightarrow$0xB0000000}
+	
+\section*{2.12.4}
+Yes, it is the desired result.  Converting the operands to decimal numbers and subtracting returns a negative number as does the binary subtraction.
+
+\section*{2.14}
+\begin{tabular}{|c|c|c|c|c|c|}
+	\hline
+	op (6 bits) & rs (5 bits) & rt (5 bits) & rd (5 bits) & shamt (5 bits) & funct (6 bits)\\
+	\hline
+	000000 & 10000 & 10000 & 10000 & 00000 & 100000\\
+	\hline
+	0 & \$s0 & \$s0 & \$s0 & 0 & 32\\
+	\hline
+\end{tabular}
+\newline
+\newline
+Type = R-type\\
+Assembly = add \$s0, \$s0, \$s0
+
+\section*{2.15}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	op (6 bits) & rs (5 bits) & rt (5 bits) & rd (5 bits) & shamt (5 bits) & funct (6 bits) & address/const\\
+	\hline
+	43 & \$t2 & \$t1 & n/a & n/a & n/a & 32\\
+	\hline
+	101011 & 01010 & 01001 & n/a & n/a & n/a & 0000000000100000\\
+	\hline
+\end{tabular}
+\newline
+\newline
+Type = I-type\\
+Binary = 1010 1101 0100 1001 0000 0000 0010 0000\\
+Hex = 0xAD490020
+
+\section*{2.17}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	op (6 bits) & rs (5 bits) & rt (5 bits) & rd (5 bits) & shamt (5 bits) & funct (6 bits) & address/const\\
+	\hline
+	0x23 & 1 & 2 & n/a & n/a & n/a & 0x4\\
+	\hline
+	35 & \$at & \$v0 & n/a & n/a & n/a & 4\\
+	\hline
+	100011 & 00001 & 00010 & n/a & n/a & n/a & 0000000000000100\\
+	\hline
+\end{tabular}
+\newline
+\vspace{4mm}
+\newline
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	Type & Instruction & Binary & Hex\\
+	\hline
+	I-type & lw \$v0, 4(\$at) & 1000 1100 0010 0010 0000 0000 0000 0100 & 0x8C220004\\
+	\hline
+\end{tabular}
+
+\section*{2.19.2}
+\$t0 = 1010 1010 1010 1010 1010 1010 1010 1010
+\newline
+\newline
+sll \$t2, \$t0, 4 $\rightarrow$ \$t2 = \$t0 $<<$ by 4 bits\\
+\$t2 = 1010 1010 1010 1010 1010 1010 1010 0000 = 0xAAAAAAA0\\
+\newline
+andi \$t2, \$t2, -1 $\rightarrow$ \$t2 = \$t2 \& -1
+\newline
+\newline
+\begin{tabular}{ccccccccc}
+	 & 1010 & 1010 & 1010 & 1010 & 1010 & 1010 & 1010 & 0000\\
+	\& & 1111 & 1111 & 1111 & 1111 & 1111 & 1111 & 1111 & 1111 \\
+	\hline
+	& 1010 & 1010 & 1010 & 1010 & 1010 & 1010 & 1010 & 0000\\
+\end{tabular}
+\newline
+\newline
+\$t2 = 0xAAAAAAA0
+
+\section*{2.23}
+ slt \$t2, \$0, \$t0 \hspace{22mm} \$0 $<$ \$t0 ? \textbf{\$t2 = 1} : \$t2 = 0\\
+ bne \$t2, \$0, ELSE \hspace{15mm} go to ELSE if \$t2 $\neq$ 0\\
+ j DONE \hspace{35mm}go to DONE\\
+ ELSE: addi \$t2, \$t2, 2 \hspace{8mm} \$t2 = \$t2 + 2\\
+ DONE:\\
+ \newline
+ \textbf{\$t2 = 3}
+ 
+ \section*{2.24}
+ No, you cannot jump the pc from 0x20000000 to 0x40000000 with a jump instruction because a J-type instruction 
+ only allows for a jump address of 26 bits.\\
+ \\
+ No, you cannot use beq to jump the pc from 0x20000000 to 0x40000000 because it only allows for an address change of 16 bits.\\
+ 
+ \section*{2.26.1}
+ \$t1 = 10\\
+ \$s2 = 0\\
+ LOOP: slt \$t2, \$0, \$t1 \hspace{12mm} \$0 $<$ \$t1 ? \$t2 = 1: \$t2 = 0\\
+ \hspace*{15mm}beq \$t2, \$0, DONE  \hspace{4mm}go to DONE if \$t2 == 0\\
+ \hspace*{15mm}subi \$t1, \$t1, 1 \hspace{10mm} \$t1 = \$t1 - 1\\
+ \hspace*{15mm}addi \$s2, \$s2, 2 \hspace{10mm} \$s2 = \$s2 + 2\\
+ j LOOP\\
+ DONE:\\
+ \newline
+ \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+	 \hline
+	 \$t1 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0\\
+	 \hline
+	 \$s2 & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20\\
+	 \hline
+\end{tabular}
+\newline
+\newline
+\textbf{Final Value for \$s2 = 20}
+
+\section*{2.38}
+\$t1 = 0x1000 0000\\
+\$t2 = 0x1000 0010\\
+Data at 0x1000 000 = 0x11223344\\
+\newline
+lbu \$t0, 0(\$t1)\hspace{10mm}\$t0 = 0x11\\
+sw \$t0, 0(\$t2)\hspace{10mm} Address of \$t2 has the data in \$t0 stored there.
+\newline
+\textbf{\$t2 has the value 0x00000011\\}
+
+\section*{2.40}
+Address = 0010 0000 0000 0001 0100 1001 0010 0100 = 0x20014924\\
+No, if the PC starts at 0x00000000 it does not have enough bits to change to reach that address.\\
+ 
+\section*{3.1}
+5ED4 - 07A4 = 5ED4 + (-07A4)\\
+\newline
+5ED4 = 0101 1110 1101 0100\\
+07A4 = 0000 0111 1010 0100\\
+inverted 07A4 = 1111 1000 0011 1011\\
+negated 07A4 = 1111 1000 0101 1100\\
+\newline
+\begin{tabular}{ccccc}
+	& 0101 & 1110 & 1101 & 0100\\
+	+& 1111 & 1000 & 0101 & 1100\\
+	\hline
+	& 0101 & 0111 & 0011 & 0000 
+\end{tabular}
+\newline
+\newline
+\textbf{5ED4 - 07A4 = 5730}\\
+
+\section*{3.4}
+4365 - 3412 = 4365 + (-3412)\\
+4362 = 100 011 110 101\\
+3412 = 011 100 001 010\\
+inverted 3412 = 100 011 110 101\\
+negated 3412 = 100 011 110 110\\
+\newline
+\begin{tabular}{ccccc}
+	& 100 & 011 & 110 & 101\\
+	+& 100 & 011 & 110 & 110\\
+	\hline
+	& 000 & 111 & 101 & 011 
+\end{tabular}
+\newline
+\newline
+\textbf{4365 - 3412 = 0753}\\
+
+\section*{3.6}
+185 - 122 = 185 + (-122)\\
+185 = 10111001\\
+122 = 01111010\\
+inverted 122 = 10000101\\
+negated 122 = 10000110\\
+\begin{tabular}{cc}
+	&10111001\\
+	+& 10000110\\
+	\hline
+	& 00111111 
+\end{tabular}
+\newline
+\newline
+\textbf{185 - 122 = 63}
+\newline
+Neither overflow or underflow occured.
+
+\section*{3.12}
+62 * 12\\
+62 = 110 010\\
+12 = 001 010\\
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Iteration & Step & Mulitplier & Multiplicand & Product \\
+	\hline
+	0 & Initial Values & 001 010 & 000 110 010 & 000 000 000\\
+	\hline
+	1 & 1a: 0 $\Rightarrow$ No operation & 001 010 & 000 110 010 & 000 000 000\\
+	  & 2: Shift left Multiplicand & 001 010 & 001 100 100 & 000 000 000\\
+	  & 3: Shift right Multiplier & 000 101 & 001 100 100 & 000 000 000\\
+	\hline
+	2 & 1a:  1 $\Rightarrow$ Prod = Prod + Mcand & 000 101 & 001 100 100 & 001 100 100\\
+	  & 2: Shift left Multiplicand & 000 101 & 011 001 000 & 001 100 100 \\
+	  & 3: Shift right Multiplier & 000 010 & 011 001 000 & 001 100 100\\
+	\hline
+	3 & 1a: 1 $\Rightarrow$ No operation & 000 010 & 011 001 000 & 001 100 100\\
+	  & 2: Shift left Multiplicand & 000 010 & 110 010 000 & 001 100 100\\
+	  & 3: Shift right Multiplier & 000 001 & 110 010 000 & 001 100 100\\
+	\hline
+	4 & 1a: 1 $\Rightarrow$ Prod = Prod + Mcand & 000 001 & 110 010 000 & 111 110 100 \\
+	  & 2: Shift left Multiplicand & 000 001 & 001 100 100 000 & 111 110 100  \\
+	  & 3: Shift right Multiplier & 000 000 & 001 100 100 000 & 111 110 100 \\
+	\hline
+\end{tabular}
+\newline
+\newline
+\textbf{62 * 12 = 111 110 100 = 764}
+	 
+\end{document}
